@@ -42,3 +42,4 @@ safelist: [
 
 ```
 
+I also noticed that with 1 keyword only the app loads very fast, but with 2 or 3 keywords is 1-3 seconds slower, with 4 or more start throwing the memory leak error.
