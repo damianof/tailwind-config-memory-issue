@@ -83,3 +83,29 @@ Repro steps:
 - actual: receive `FATAL ERROR: Reached heap limit Allocation failed - JavaScript heap out of memory` (for the full output see [here](https://github.com/damianof/tailwind-config-memory-issue/blob/main/node-error.txt) )
 
 Additional details can be found within the README.md file on the sample project.
+
+
+## Possible solution:
+
+```
+const safeListPatterns = ['text', 'border', 'shadow', 'placeholder', 'ring', 'rounded']
+const safeListVariants = [
+  'sm', 'md', 'lg',
+  'hover', 'focus', 
+  'sm:hover', 'md:hover', 'lg:hover'
+]
+
+module.exports = {
+  plugins: [],
+  content: [
+    "./index.html",
+    "./src/**/*.{vue,js,ts,jsx,tsx}"
+  ],
+  safelist: [
+    {
+      pattern: /^(bg)+/
+    },
+    ...safeListPatterns.flatMap(p => safeListVariants.map(v => `${ p }-${ v }`))
+  ]
+}
+```
